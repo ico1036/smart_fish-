@@ -24,6 +24,25 @@ class PrepareRequest(BaseModel):
     simulation_requirement: str = ""
     entity_types: list[str] = []
 
+@router.get("/history")
+def simulation_history(limit: int = 20):
+    """List recent simulations for history display."""
+    storage = get_storage()
+    # Scan simulations directory
+    sim_dir = storage.data_dir / "simulations"
+    if not sim_dir.exists():
+        return []
+    sims = []
+    for f in sim_dir.glob("*.json"):
+        try:
+            state = storage.get_simulation(f.stem)
+            if state:
+                sims.append(state.model_dump())
+        except Exception:
+            continue
+    sims.sort(key=lambda s: s.get("created_at", ""), reverse=True)
+    return sims[:limit]
+
 @router.post("/create")
 def create_simulation(req: CreateSimRequest):
     state = SimState(project_id=req.project_id, graph_id=req.graph_id,
