@@ -3,11 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev:backend": "cd backend && uv run python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 5001",
+    "dev:backend": "uv run uvicorn backend.app.main:app --reload --host 0.0.0.0 --port 5001",
     "dev:frontend": "cd frontend && npm run dev",
-    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
     "build": "cd frontend && npm run build",
-    "test": "cd backend && uv run pytest -v",
-    "setup": "cd backend && uv sync && cd ../frontend && npm install"
+    "test": "uv run pytest -v",
+    "lint": "uv run ruff check backend/",
+    "format": "uv run ruff format backend/",
+    "setup": "uv sync && cd frontend && npm install"
   }
 }

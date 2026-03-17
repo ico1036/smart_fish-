@@ -11,4 +11,4 @@ uploads/
 data/
 backend/data/
 backend/uploads/
-uv.lock
+.ruff_cache/
