@@ -12,6 +12,7 @@ dependencies = [
     "python-multipart>=0.0.9",
     "pymupdf>=1.24.0",
     "websockets>=13.0",
+    "anthropic>=0.40.0",
 ]
 
 [project.optional-dependencies]
