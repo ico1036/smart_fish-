@@ -44,3 +44,17 @@ def test_extract_text_encoding(tmp_path):
     f.write_text("中文内容测试", encoding="utf-8")
     result = extract_text(str(f))
     assert result == "中文内容测试"
+
+
+from app.tools.file_tools import parse_document, chunk_text
+
+def test_parse_document_tool(tmp_path):
+    f = tmp_path / "tool_test.txt"
+    f.write_text("Tool test content", encoding="utf-8")
+    result = parse_document(str(f))
+    assert result == "Tool test content"
+
+def test_chunk_text_tool():
+    text = "a" * 1000
+    chunks = chunk_text(text, chunk_size=500, overlap=50)
+    assert len(chunks) >= 2
