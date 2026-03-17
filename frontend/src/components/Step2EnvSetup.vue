@@ -1,3 +1,8 @@
+<!--
+  Originally from MiroFish (https://github.com/666ghj/MiroFish)
+  Copyright (c) 2025 MiroFish Contributors — AGPL-3.0
+  Modified 2026 for SmartFish: API endpoints adapted, branding changed
+-->
 <template>
   <div class="env-setup-panel">
     <div class="scroll-container">
