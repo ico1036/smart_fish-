@@ -1,10 +1,14 @@
 __pycache__/
 *.py[cod]
+*.pyc
 .venv/
 .env
 *.egg-info/
 dist/
 build/
+node_modules/
 uploads/
 data/
+backend/data/
+backend/uploads/
 uv.lock

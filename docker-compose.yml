@@ -1,0 +1,12 @@
+services:
+  smartfish:
+    build: .
+    ports:
+      - "5001:5001"
+    env_file: .env
+    volumes:
+      - ./data:/app/backend/data
+      - ./uploads:/app/backend/uploads
+    environment:
+      - DEBUG=false
+    restart: unless-stopped
