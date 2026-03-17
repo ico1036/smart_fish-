@@ -1,5 +1,6 @@
 import uuid
 from datetime import datetime
+from typing import Optional
 
 class SimEngine:
     def __init__(self):
@@ -52,7 +53,7 @@ class SimEngine:
     def get_feed(self, platform: str, limit: int = 20) -> list[dict]:
         return sorted(self.platforms[platform]["posts"], key=lambda x: x["timestamp"], reverse=True)[:limit]
 
-    def get_post_with_comments(self, platform: str, post_id: str) -> dict | None:
+    def get_post_with_comments(self, platform: str, post_id: str) -> Optional[dict]:
         for post in self.platforms[platform]["posts"]:
             if post["post_id"] == post_id:
                 comments = [c for c in self.platforms[platform]["comments"] if c["post_id"] == post_id]
