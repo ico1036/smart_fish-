@@ -2,11 +2,10 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
   { path: '/', name: 'Home', component: () => import('../views/HomeView.vue') },
-  { path: '/project/:id', name: 'Project', component: () => import('../views/ProjectView.vue') },
-  { path: '/graph/:id', name: 'Graph', component: () => import('../views/GraphView.vue') },
-  { path: '/simulation/:id', name: 'Simulation', component: () => import('../views/SimulationView.vue') },
-  { path: '/report/:id', name: 'Report', component: () => import('../views/ReportView.vue') },
-  { path: '/chat/:reportId', name: 'Chat', component: () => import('../views/ChatView.vue') },
+  { path: '/process/:projectId', name: 'Process', component: () => import('../views/MainView.vue'), props: true },
+  { path: '/simulation/:simulationId/start', name: 'SimulationRun', component: () => import('../views/SimulationRunView.vue'), props: true },
+  { path: '/report/:reportId', name: 'Report', component: () => import('../views/ReportView.vue'), props: true },
+  { path: '/interaction/:reportId', name: 'Interaction', component: () => import('../views/InteractionView.vue'), props: true },
 ]
 
 export default createRouter({ history: createWebHistory(), routes })
