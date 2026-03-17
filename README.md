@@ -2,8 +2,10 @@
 
 # SMARTFISH
 
-**Swarm Intelligence Engine, Predicting Anything**
+**군집 지능 엔진, 모든 것을 예측하다**</br>
+*Swarm Intelligence Engine, Predicting Anything*
 
+*문서를 올리면 세상이 만들어지고, 그 안의 에이전트를 인터뷰할 수 있습니다.*</br>
 *Upload a document. Watch a world come alive. Interview the agents inside.*
 
 [![GitHub Stars](https://img.shields.io/github/stars/ico1036/smart_fish-?style=flat-square&color=DAA520)](https://github.com/ico1036/smart_fish-/stargazers)
@@ -14,15 +16,23 @@
 [![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL--3.0-blue?style=flat-square)](LICENSE)
 [![Docker](https://img.shields.io/badge/Docker-Build-2496ED?style=flat-square&logo=docker&logoColor=white)](https://hub.docker.com/)
 
-[English](#-overview) | [한국어](#-개요)
-
 </div>
 
 ---
 
-## Overview
+## 개요 / Overview
 
-**SmartFish** is a multi-agent swarm intelligence simulator. Give it any document — a news article, a policy draft, a novel chapter — and it will:
+**SmartFish**는 멀티에이전트 군집지능 시뮬레이터입니다. 아무 문서나 넣으면:
+
+**SmartFish** is a multi-agent swarm intelligence simulator. Give it any document and it will:
+
+1. **지식그래프 자동 추출** — 인물, 조직, 개념 간 관계를 파악합니다
+2. **AI 에이전트로 변환** — 각 엔티티가 고유한 성격을 가진 에이전트로 살아납니다
+3. **소셜미디어 시뮬레이션** — 가상 트위터/레딧에서 포스팅, 좋아요, 댓글, 논쟁합니다
+4. **예측 보고서 생성** — Claude가 시뮬레이션 결과를 분석합니다
+5. **에이전트 인터뷰** — "왜 그 글에 반대했어?" → 인캐릭터 응답
+
+---
 
 1. **Extract a knowledge graph** of entities and relationships
 2. **Bring them to life** as AI agents with distinct personalities
@@ -30,49 +40,53 @@
 4. **Generate a prediction report** analyzing what happened
 5. **Let you interview any agent** about their motivations
 
-> You only need to: **Upload a document** and describe what you want to simulate in plain language.
+> **입력**: 문서 + 시뮬레이션 요구사항 (자연어)</br>
+> **출력**: 예측 보고서 + 탐색 가능한 디지털 평행세계
 >
-> SmartFish returns: **A prediction report** and a fully interactive digital world you can explore.
+> **Input**: A document + what you want to simulate (plain language)</br>
+> **Output**: A prediction report + a fully interactive digital parallel world
 
-### Vision
+### 누구를 위한 도구인가? / Who is this for?
 
-- **For decision-makers**: A zero-risk rehearsal lab — test policies, PR strategies, and announcements before they go live
-- **For researchers**: Observe emergent social behaviors, opinion cascades, and group dynamics
-- **For everyone**: A creative sandbox where every "what if" gets an answer
-
----
-
-## How It Works
-
-```
-Document Upload ──→ Knowledge Graph ──→ AI Agent Profiles ──→ Social Media Simulation ──→ Analysis Report
-   (PDF/MD/TXT)      (auto-extracted)    (LLM-generated)      (Twitter/Reddit)           (with interviews)
-```
-
-### 5-Step Workflow
-
-| Step | What Happens | What You See |
-|:----:|-------------|-------------|
-| **01** | **Graph Build** — Claude analyzes your document, extracts entities (people, orgs, concepts) and their relationships | Interactive D3 force-directed graph with clickable nodes |
-| **02** | **Environment Setup** — Each entity becomes an AI agent with a unique personality, profession, MBTI, and communication style | Agent profile cards with generated personas |
-| **03** | **Run Simulation** — Agents autonomously post, like, reply, repost, and follow each other across simulated rounds | Real-time activity feed streaming via WebSocket |
-| **04** | **Report Generation** — Claude analyzes all agent behaviors, interactions, and emergent patterns | 6-section structured analysis report |
-| **05** | **Deep Interaction** — Chat with the report agent or interview any individual agent in character | Chat interface with conversation history |
+- **의사결정자 / Decision-makers**: 정책, PR 발표 전 제로 리스크 여론 리허설 / Zero-risk rehearsal for policies and announcements
+- **연구자 / Researchers**: 사회적 행동, 여론 전파, 집단역학 관찰 / Observe emergent social behaviors and group dynamics
+- **누구나 / Everyone**: "만약 ~하면?" 에 답하는 창의적 샌드박스 / A sandbox where every "what if" gets an answer
 
 ---
 
-## Quick Start
+## 작동 원리 / How It Works
 
-### Prerequisites
+```
+문서 업로드 ──→ 지식그래프 ──→ AI 에이전트 ──→ 소셜미디어 시뮬 ──→ 분석 보고서
+Document       Knowledge      AI Agent        Social Media       Analysis
+Upload         Graph          Profiles        Simulation         Report
+(PDF/MD/TXT)   (auto-extract) (LLM-generated) (Twitter/Reddit)   (with interviews)
+```
 
-| Tool | Version | Check |
-|------|---------|-------|
+### 5단계 워크플로우 / 5-Step Workflow
+
+| 단계 | 무엇이 일어나는가 / What Happens | 화면에 보이는 것 / What You See |
+|:----:|-------------------------------|-------------------------------|
+| **01** | **그래프 빌드** — Claude가 문서에서 엔티티와 관계를 추출 | D3 인터랙티브 그래프 (노드 클릭 가능) |
+| **02** | **환경 설정** — 각 엔티티가 고유 성격의 AI 에이전트로 변환 | 에이전트 프로필 카드 |
+| **03** | **시뮬레이션** — 에이전트들이 자율적으로 포스팅, 좋아요, 댓글 | WebSocket 실시간 피드 |
+| **04** | **보고서 생성** — Claude가 행동과 패턴을 분석 | 6개 섹션 구조화 보고서 |
+| **05** | **딥 인터랙션** — 보고서 Q&A + 에이전트 인캐릭터 인터뷰 | 대화 인터페이스 |
+
+---
+
+## 빠른 시작 / Quick Start
+
+### 필요한 것 / Prerequisites
+
+| 도구 | 버전 | 확인 |
+|------|------|------|
 | [Python](https://python.org) | 3.11+ | `python --version` |
-| [uv](https://docs.astral.sh/uv/) | latest | `uv --version` |
+| [uv](https://docs.astral.sh/uv/) | 최신 / latest | `uv --version` |
 | [Node.js](https://nodejs.org) | 18+ | `node --version` |
-| [Anthropic API Key](https://console.anthropic.com/) | — | Sign up at console.anthropic.com |
+| [Anthropic API Key](https://console.anthropic.com/) | — | console.anthropic.com 에서 발급 |
 
-### 1. Clone & Configure
+### 1. 클론 & 설정 / Clone & Configure
 
 ```bash
 git clone https://github.com/ico1036/smart_fish-.git
@@ -80,199 +94,192 @@ cd smart_fish-
 cp .env.example .env
 ```
 
-Open `.env` and add your Anthropic API key:
+`.env` 파일을 열고 API 키 입력 / Open `.env` and add your API key:
 
 ```env
-ANTHROPIC_API_KEY=sk-ant-api03-your-key-here
+ANTHROPIC_API_KEY=your-anthropic-api-key-here
 ```
 
-### 2. Install Dependencies
+### 2. 설치 / Install
 
 ```bash
-# Backend (Python)
+# 백엔드 / Backend
 uv sync
 
-# Frontend (Node.js)
+# 프론트엔드 / Frontend
 cd frontend && npm install && cd ..
 ```
 
-### 3. Run
+### 3. 실행 / Run
 
 ```bash
-# Terminal 1: Backend
+# 터미널 1: 백엔드
 uv run uvicorn backend.app.main:app --reload --port 5001
 
-# Terminal 2: Frontend
+# 터미널 2: 프론트엔드
 cd frontend && npm run dev
 ```
 
-Open **http://localhost:3000** in your browser.
+**http://localhost:3000** 접속
 
-### Docker Deployment
+### Docker
 
 ```bash
 cp .env.example .env
-# Edit .env with your ANTHROPIC_API_KEY
+# .env에 ANTHROPIC_API_KEY 입력
 docker compose up -d
+# http://localhost:5001 접속
 ```
 
-Access at **http://localhost:5001**
-
 ---
 
-## Usage Guide
+## 사용 가이드 / Usage Guide
 
-### Step 1: Upload Your Document
+### Step 1: 문서 업로드
 
-1. Open http://localhost:3000
-2. Drag & drop a PDF, Markdown, or text file into the upload area
-3. Write your simulation requirement in natural language:
+1. http://localhost:3000 접속
+2. PDF, MD, TXT 파일을 드래그&드롭
+3. 시뮬레이션 요구사항을 자연어로 입력:
+   - *"이 회사의 구조조정 발표 후 여론 변화를 시뮬레이션해줘"*
+   - *"이 소설 등장인물들이 소셜미디어에서 어떻게 반응할지 예측해줘"*
    - *"Simulate how public opinion evolves after this company announces layoffs"*
-   - *"Predict how characters in this novel would react on social media"*
-   - *"Model the debate around this policy proposal"*
-4. Click **"Launch Engine →"**
+4. **"Launch Engine →"** 클릭
 
-### Step 2: Watch the Graph Build
+### Step 2: 그래프 빌드
 
-- Claude analyzes your document and designs an ontology (entity types + relationships)
-- Entities and relationships are extracted and visualized as an interactive graph
-- Click any node to see its properties, connections, and context
+- Claude가 문서를 분석하고 온톨로지(엔티티 타입 + 관계) 설계
+- 엔티티와 관계가 인터랙티브 그래프로 시각화
+- 노드 클릭 → 속성, 연결, 컨텍스트 확인
 
-### Step 3: Run the Simulation
+### Step 3: 시뮬레이션
 
-- Agent profiles are generated from graph entities (each with unique personality)
-- Configure simulation rounds and platforms
-- Watch agents interact in real-time — posting, replying, liking, debating
+- 그래프 엔티티에서 에이전트 프로필 자동 생성 (고유 성격)
+- 라운드 수, 플랫폼 설정
+- 에이전트들이 실시간으로 포스팅, 댓글, 좋아요, 논쟁
 
-### Step 4: Read the Report
+### Step 4: 보고서
 
-- Claude analyzes all simulation data and generates a structured report
-- Covers: Executive Summary, Behavior Analysis, Interaction Dynamics, Opinion Flow, Emergent Patterns, Predictions
+- 요약, 행동 분석, 인터랙션 역학, 여론 흐름, 창발적 패턴, 예측
 
-### Step 5: Interview Agents
+### Step 5: 인터뷰
 
-- Ask the Report Agent questions about the findings
-- Interview individual agents in character:
-  - *"Why did you oppose the policy?"*
-  - *"What made you repost that article?"*
-  - They answer as their simulated persona, not as an AI
+- 보고서 에이전트에게: *"가장 영향력 있는 에이전트는?"*
+- 개별 에이전트에게: *"왜 그 정책에 반대했어?"* → 시뮬레이션 속 인물로서 대답
 
 ---
 
-## Cost Estimate
+## 비용 / Cost
 
-SmartFish uses Claude Sonnet for analysis and Claude Haiku for simulation agents to optimize costs.
+| 단계 | 모델 | 비용 |
+|------|------|------|
+| 온톨로지 생성 | Sonnet | ~$0.05 |
+| 그래프 빌드 | Sonnet | ~$0.10/청크 |
+| 프로필 생성 | Sonnet | ~$0.03/에이전트 |
+| 시뮬레이션 | **Haiku** | ~$0.005/에이전트/라운드 |
+| 보고서 | Sonnet | ~$0.10 |
+| 채팅/인터뷰 | Haiku | ~$0.002/질문 |
 
-| Step | Model | Approx. Cost |
-|------|-------|-------------|
-| Ontology Generation | Sonnet | ~$0.05 |
-| Graph Build | Sonnet | ~$0.10 per chunk |
-| Profile Generation | Sonnet | ~$0.03 per agent |
-| Simulation | **Haiku** | ~$0.005 per agent per round |
-| Report | Sonnet | ~$0.10 |
-| Chat / Interview | Haiku | ~$0.002 per question |
-
-**Example**: 10 agents, 5 rounds = **~$1-2 total**
+**예시**: 에이전트 10명 x 5라운드 = **약 $1~2**
 
 ---
 
-## Tech Stack
+## 기술 스택 / Tech Stack
 
-| Layer | Technology |
-|-------|-----------|
+| 레이어 | 기술 |
+|--------|-----|
 | **LLM** | Anthropic Claude (Sonnet + Haiku) |
-| **Backend** | FastAPI (Python 3.11+) |
-| **Frontend** | Vue 3 + Vite + D3.js |
-| **Knowledge Graph** | NetworkX (in-memory) |
-| **Simulation** | Custom social media engine |
-| **Real-time** | WebSocket streaming |
-| **Package Manager** | uv (Python) + npm (Node.js) |
-| **Deployment** | Docker Compose |
+| **백엔드** | FastAPI (Python 3.11+) |
+| **프론트엔드** | Vue 3 + Vite + D3.js |
+| **지식그래프** | NetworkX |
+| **시뮬레이션** | Custom Social Media Engine |
+| **실시간** | WebSocket |
+| **배포** | Docker Compose |
 
 ---
 
-## Project Structure
+## 프로젝트 구조 / Project Structure
 
 ```
 smart_fish-/
 ├── backend/
 │   ├── app/
-│   │   ├── agents/          # Agent definitions (ontology, graph, sim, report, interview)
-│   │   ├── api/             # FastAPI routers (project, graph, simulation, report)
-│   │   ├── models/          # Pydantic data models
-│   │   ├── services/        # Core services (LLM, ontology, graph builder, sim runner, report)
-│   │   ├── tools/           # Tool wrappers (file, graph, sim, report)
-│   │   └── utils/           # Utilities (file parser, text processor, LLM client)
-│   └── tests/               # 120 tests across all modules
+│   │   ├── agents/          # 에이전트 정의 (ontology, graph, sim, report, interview)
+│   │   ├── api/             # FastAPI 라우터 (project, graph, simulation, report)
+│   │   ├── models/          # Pydantic 데이터 모델
+│   │   ├── services/        # 핵심 서비스 (LLM, ontology, graph builder, sim runner, report)
+│   │   ├── tools/           # 도구 래퍼 (file, graph, sim, report)
+│   │   └── utils/           # 유틸리티 (파일 파서, 텍스트 처리, LLM 클라이언트)
+│   └── tests/               # 120개 테스트
 ├── frontend/
 │   ├── src/
-│   │   ├── views/           # 9 page views
-│   │   ├── components/      # 7 components (GraphPanel, Step1-5, HistoryDB)
-│   │   └── api/             # API client modules
-├── pyproject.toml            # Python dependencies (uv)
+│   │   ├── views/           # 9개 페이지 뷰
+│   │   ├── components/      # 7개 컴포넌트 (GraphPanel, Step1-5, HistoryDB)
+│   │   └── api/             # API 클라이언트
+├── pyproject.toml            # Python 의존성 (uv)
 ├── docker-compose.yml
 └── Dockerfile
 ```
 
 ---
 
-## API Reference
+## API 레퍼런스 / API Reference
 
 ### Project
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| `POST` | `/api/project/upload` | Upload files and create project |
-| `GET` | `/api/project/list` | List all projects |
-| `GET` | `/api/project/{id}` | Get project details |
+| `POST` | `/api/project/upload` | 파일 업로드 + 프로젝트 생성 |
+| `GET` | `/api/project/list` | 프로젝트 목록 |
+| `GET` | `/api/project/{id}` | 프로젝트 상세 |
 
 ### Graph
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| `POST` | `/api/graph/ontology/generate` | Generate ontology from documents |
-| `POST` | `/api/graph/build` | Build knowledge graph (async) |
-| `GET` | `/api/graph/build/status?task_id=X` | Check build progress |
-| `GET` | `/api/graph/{id}` | Get graph nodes and edges |
+| `POST` | `/api/graph/ontology/generate` | 온톨로지 생성 |
+| `POST` | `/api/graph/build` | 지식그래프 빌드 (비동기) |
+| `GET` | `/api/graph/build/status?task_id=X` | 빌드 진행률 |
+| `GET` | `/api/graph/{id}` | 그래프 데이터 |
 
 ### Simulation
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| `POST` | `/api/simulation/create` | Create simulation instance |
-| `POST` | `/api/simulation/{id}/prepare` | Generate agent profiles (async) |
-| `WS` | `/api/simulation/{id}/stream` | WebSocket: real-time simulation |
-| `GET` | `/api/simulation/history` | List simulation history |
+| `POST` | `/api/simulation/create` | 시뮬레이션 생성 |
+| `POST` | `/api/simulation/{id}/prepare` | 에이전트 프로필 생성 (비동기) |
+| `WS` | `/api/simulation/{id}/stream` | WebSocket 실시간 시뮬레이션 |
+| `GET` | `/api/simulation/history` | 시뮬레이션 히스토리 |
 
 ### Report
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| `POST` | `/api/report/generate` | Generate analysis report (async) |
-| `GET` | `/api/report/{id}` | Get report content |
-| `POST` | `/api/report/{id}/chat` | Chat with report agent |
-| `POST` | `/api/report/interview` | Interview a simulation agent |
+| `POST` | `/api/report/generate` | 보고서 생성 (비동기) |
+| `GET` | `/api/report/{id}` | 보고서 내용 |
+| `POST` | `/api/report/{id}/chat` | 보고서 에이전트 채팅 |
+| `POST` | `/api/report/interview` | 에이전트 인터뷰 |
 
 ---
 
-## Acknowledgments
+## 감사의 글 / Acknowledgments
 
-SmartFish is a reimplementation of [MiroFish](https://github.com/666ghj/MiroFish), rebuilt from scratch with:
-- **Anthropic Claude** instead of OpenAI
-- **FastAPI** instead of Flask
-- **NetworkX** instead of Zep Cloud
-- **Custom simulation engine** instead of OASIS/CAMEL-AI
+SmartFish는 [MiroFish](https://github.com/666ghj/MiroFish)를 기반으로 처음부터 새로 구현했습니다:
+- **Anthropic Claude** (OpenAI 대체)
+- **FastAPI** (Flask 대체)
+- **NetworkX** (Zep Cloud 대체)
+- **커스텀 시뮬레이션 엔진** (OASIS/CAMEL-AI 대체)
 
-Original MiroFish by [@666ghj](https://github.com/666ghj) — licensed under AGPL-3.0.
+원본: [@666ghj](https://github.com/666ghj) — AGPL-3.0
 
 ---
 
-## License
+## 라이선스 / License
 
-This project is licensed under the [AGPL-3.0 License](LICENSE).
+[AGPL-3.0](LICENSE)
 
 ---
 
 <div align="center">
 
+*미래를 에이전트 군집 속에서 리허설하고, 백전 후에 결정을 내리세요.*</br>
 *Let the future rehearse in Agent swarms, let decisions prevail after a hundred battles.*
 
-**[Get Started](#quick-start)** · **[Report Bug](https://github.com/ico1036/smart_fish-/issues)** · **[Request Feature](https://github.com/ico1036/smart_fish-/issues)**
+**[시작하기 / Get Started](#빠른-시작--quick-start)** · **[버그 제보 / Report Bug](https://github.com/ico1036/smart_fish-/issues)** · **[기능 요청 / Feature Request](https://github.com/ico1036/smart_fish-/issues)**
 
 </div>
