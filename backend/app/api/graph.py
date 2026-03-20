@@ -1,19 +1,17 @@
 """Graph API - ontology generation, graph building, data retrieval."""
 import threading
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, UploadFile, File, Form
 from pydantic import BaseModel
 from ..services.storage import get_storage
 from ..services.ontology_service import OntologyService
 from ..services.graph_builder import GraphBuilder
 from ..tools.graph_tools import get_graph_service
 from ..utils.text_processor import split_into_chunks
-from ..models.project import ProjectStatus, Ontology, EntityType, EdgeType
+from ..utils.file_parser import extract_text
+from ..models.project import Project, UploadedFile, ProjectStatus, Ontology, EntityType, EdgeType
+from ..config import settings
 
 router = APIRouter()
-
-class OntologyRequest(BaseModel):
-    project_id: str
-    simulation_requirement: str = ""
 
 class BuildRequest(BaseModel):
     project_id: str
@@ -24,15 +22,36 @@ class BuildRequest(BaseModel):
 _tasks: dict[str, dict] = {}
 
 @router.post("/ontology/generate")
-def generate_ontology(req: OntologyRequest):
-    project = get_storage().get_project(req.project_id)
-    if not project:
-        raise HTTPException(status_code=404, detail="Project not found")
-    combined_text = "\n\n---\n\n".join(f.text_content for f in project.files if f.text_content)
+async def generate_ontology(
+    files: list[UploadFile] = File(...),
+    simulation_requirement: str = Form(""),
+):
+    """Upload files and generate ontology in one step."""
+    project = Project(name="Untitled")
+    upload_dir = settings.UPLOAD_DIR / project.project_id
+    upload_dir.mkdir(parents=True, exist_ok=True)
+
+    uploaded = []
+    for f in files:
+        ext = f.filename.rsplit(".", 1)[-1].lower() if f.filename else ""
+        if ext not in settings.ALLOWED_EXTENSIONS:
+            continue
+        file_path = upload_dir / f.filename
+        content = await f.read()
+        file_path.write_bytes(content)
+        text = extract_text(str(file_path))
+        uploaded.append(UploadedFile(filename=f.filename, size=len(content), text_content=text))
+
+    if not uploaded:
+        raise HTTPException(status_code=400, detail="No valid files uploaded")
+
+    project.files = uploaded
+    combined_text = "\n\n---\n\n".join(f.text_content for f in uploaded if f.text_content)
     if not combined_text:
         raise HTTPException(status_code=400, detail="No text content in uploaded files")
+
     service = OntologyService()
-    ontology = service.generate(req.simulation_requirement, combined_text)
+    ontology = await service.agenerate(simulation_requirement, combined_text)
     project.ontology = Ontology(
         entity_types=[EntityType(**et) for et in ontology["entity_types"]],
         edge_types=[EdgeType(**et) for et in ontology["edge_types"]],
@@ -91,8 +110,11 @@ def build_status(task_id: str):
 def get_graph_data(graph_id: str):
     svc = get_graph_service()
     try:
-        nodes = svc.get_nodes(graph_id)
-        edges = svc.get_edges(graph_id)
+        raw_nodes = svc.get_nodes(graph_id)
+        raw_edges = svc.get_edges(graph_id)
+        # Map field names for frontend compatibility
+        nodes = [{"uuid": n.pop("node_id"), **n} for n in raw_nodes]
+        edges = [{"source_node_uuid": e.pop("source_id"), "target_node_uuid": e.pop("target_id"), **e} for e in raw_edges]
         return {"graph_id": graph_id, "nodes": nodes, "edges": edges, "node_count": len(nodes), "edge_count": len(edges)}
     except KeyError:
         raise HTTPException(status_code=404, detail="Graph not found")

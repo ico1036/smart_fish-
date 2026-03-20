@@ -85,7 +85,7 @@ import { useRoute, useRouter } from 'vue-router'
 import GraphPanel from '../components/GraphPanel.vue'
 import Step1GraphBuild from '../components/Step1GraphBuild.vue'
 import Step2EnvSetup from '../components/Step2EnvSetup.vue'
-import { generateOntology, buildGraph, getTaskStatus, getGraphData } from '../api/graph'
+import { generateOntology, buildGraph, getBuildStatus, getGraphData } from '../api/graph'
 import { getProject } from '../api/project'
 import { getPendingUpload, clearPendingUpload } from '../store/pendingUpload'
 
@@ -323,7 +323,7 @@ const startPollingTask = (taskId) => {
 
 const pollTaskStatus = async (taskId) => {
   try {
-    const res = await getTaskStatus(taskId)
+    const res = await getBuildStatus(taskId)
     if (res.success) {
       const task = res.data
 

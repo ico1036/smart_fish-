@@ -20,12 +20,17 @@ service.interceptors.response.use(
   response => {
     const res = response.data
 
-    if (!res.success && res.success !== undefined) {
-      console.error('API Error:', res.error || res.message || 'Unknown error')
-      return Promise.reject(new Error(res.error || res.message || 'Error'))
+    // If backend already wraps with {success, data}, pass through
+    if (res.success !== undefined) {
+      if (!res.success) {
+        console.error('API Error:', res.error || res.message || 'Unknown error')
+        return Promise.reject(new Error(res.error || res.message || 'Error'))
+      }
+      return res
     }
 
-    return res
+    // Backend returns raw data — wrap it for frontend compatibility
+    return { success: true, data: res }
   },
   error => {
     console.error('Response error:', error)
