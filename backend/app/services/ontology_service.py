@@ -41,6 +41,18 @@ class OntologyService:
         )
         return self._validate_and_fix(result)
 
+    async def agenerate(self, simulation_requirement: str, document_text: str) -> dict:
+        text = document_text[:MAX_TEXT_LENGTH]
+        user_message = f"## Simulation Requirement\n{simulation_requirement}\n\n## Document Content\n{text}"
+        result = await self.llm.achat_json(
+            messages=[
+                {"role": "system", "content": ONTOLOGY_SYSTEM_PROMPT},
+                {"role": "user", "content": user_message},
+            ],
+            temperature=0.3, max_tokens=4096,
+        )
+        return self._validate_and_fix(result)
+
     def _validate_and_fix(self, result: dict) -> dict:
         entity_types = result.get("entity_types", [])
         names = [et["name"] for et in entity_types]

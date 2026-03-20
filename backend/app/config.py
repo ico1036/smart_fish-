@@ -5,9 +5,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class Settings:
-    ANTHROPIC_API_KEY: str = os.getenv("ANTHROPIC_API_KEY", "")
-    CLAUDE_MODEL: str = os.getenv("CLAUDE_MODEL", "claude-sonnet-4-5")
-    CLAUDE_SIM_MODEL: str = os.getenv("CLAUDE_SIMULATION_MODEL", "claude-haiku-4-5")
+    CLAUDE_MODEL: str = os.getenv("SMARTFISH_MODEL", "claude-sonnet-4-5")
+    CLAUDE_SIM_MODEL: str = os.getenv("SMARTFISH_SIM_MODEL", "claude-haiku-4-5")
 
     APP_HOST: str = os.getenv("APP_HOST", "0.0.0.0")
     APP_PORT: int = int(os.getenv("APP_PORT", "5001"))
